@@ -1,4 +1,4 @@
-import { FormEvent, ReactNode, useState } from 'react'
+import { FormEvent, ReactNode, useEffect, useState } from 'react'
 import * as Styles from './styles'
 import { FiChevronRight } from 'react-icons/fi'
 import { api } from '../../services/api-github'
@@ -15,7 +15,19 @@ type Repository = {
 export function Dashboard () {
     const [inputError, setInputError] = useState('')
     const [inputRepo, setInputRepo] = useState('')
-    const [repositories, setRepositories] = useState<Repository[]>([])
+    const [repositories, setRepositories] = useState<Repository[]>(() => {
+        const localRepositories = localStorage.getItem('@githubExplorer:repositories')
+
+        if (localRepositories) {
+            return JSON.parse(localRepositories)
+        }
+
+        return []
+    })
+
+    useEffect(() => {
+        localStorage.setItem('@githubExplorer:repositories', JSON.stringify(repositories))
+    }, [repositories])
 
     async function handleAddRepository (event: FormEvent): Promise<void> {
         event.preventDefault()
