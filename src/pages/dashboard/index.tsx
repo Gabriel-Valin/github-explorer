@@ -1,7 +1,8 @@
 import React from 'react'
+import * as Styles from './styles'
 
 export function Dashboard () {
     return (
-        <h1>Dashboard</h1>
+        <Styles.Title>Explore some repository from Github here</Styles.Title>
     )
 }
