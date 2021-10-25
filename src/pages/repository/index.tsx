@@ -1,7 +1,14 @@
-import React from 'react'
+import { useRouteMatch } from 'react-router-dom'
+
+type RepositoryParams = {
+    name: string
+}
 
 export function Repository () {
+    const { params } = useRouteMatch<RepositoryParams>()
+    console.log(params)
+
     return (
-        <h1>Repository</h1>
+        <h1>Repository: {params.name}</h1>
     )
 }
